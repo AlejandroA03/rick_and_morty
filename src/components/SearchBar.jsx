@@ -1,8 +1,13 @@
+import styled from "styled-components";
+
+const SearchB= styled.div`
+   `
+
 export default function SearchBar(props) {
    return (
-      <div>
+      <SearchB>
          <input type='search' />
          <button onClick={props.onSearch}>Agregar</button>
-      </div>
+      </SearchB>
    );
 }
