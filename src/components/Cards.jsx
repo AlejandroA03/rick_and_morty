@@ -2,8 +2,9 @@ import Card from './Card';
 import styled from 'styled-components';
 
 const Container= styled.div`
-   display: grid;
-   grid: auto-flow 80px;`
+   display: flex;
+   justify-content: center;
+   flex-wrap: wrap;`
 
 export default function Cards(props) {
    return (<Container>
