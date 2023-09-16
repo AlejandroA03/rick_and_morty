@@ -2,24 +2,25 @@ import Card from './Card';
 import styled from 'styled-components';
 
 const Container= styled.div`
-   display: flex;
-   justify-content: center;
-   flex-wrap: wrap;`
+   `
 
 export default function Cards(props) {
-   return (<Container>
-      {props.characters.map(({id, name, status, species, gender, origin, image})=>
-      <Card 
-         key={id}
-         id={id}
-         name={name}
-         status={status}
-         species={species}
-         gender={gender}
-         origin={origin.name}
-         image={image}
-         onClose={() => window.alert('Emulamos que se cierra la card')}
-      />)
+   const {characters, onClose}= props;
+   return (
+   <Container>
+      {characters.map((char) => {
+         return(
+            <Card 
+               key={char.id}
+               id={char.id}
+               name={char.name}
+               status={char.status}
+               species={char.species}
+               gender={char.gender}
+               origin={char.origin.name}
+               image={char.image}
+               onClose={onClose}
+            />)})
       }
    </Container>)
 }

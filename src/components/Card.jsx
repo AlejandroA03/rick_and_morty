@@ -1,20 +1,19 @@
 import styled from "styled-components";
 
 const Tarjeta= styled.div`
-   display: grid;
-   border: 2px;
-   width: 3em;`
+   `
 
 export default function Card(props) {
+   const {id, name, status, species, gender, origin, image, onClose}= props;
    return (
       <Tarjeta>
-         <button onClick={props.onClose}>X</button>
-         <h2>{props.name}</h2>
-         <h2>{props.status}</h2>
-         <h2>{props.species}</h2>
-         <h2>{props.gender}</h2>
-         <h2>{props.origin}</h2>
-         <img src={props.image} alt='' />
+         <button onClick={() => onClose(id)}>X</button>
+         <h2>{name}</h2>
+         <h2>{status}</h2>
+         <h2>{species}</h2>
+         <h2>{gender}</h2>
+         <h2>{origin}</h2>
+         <img src={image} alt='' />
       </Tarjeta>
    );
 }
