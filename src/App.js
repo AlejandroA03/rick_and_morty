@@ -1,6 +1,9 @@
+import { Routes, Route } from 'react-router-dom';
 import styled from 'styled-components';
 import Cards from './components/Cards.jsx';
 import Nav from './components/Nav.jsx';
+import About from './components/About.jsx';
+import Detail from './components/Detail.jsx';
 import { useState } from 'react';
 import axios from 'axios';
 
@@ -57,9 +60,22 @@ function App() {
    return (
       <PrincipalDiv>
          <Nav onSearch={onSearch} addRandomCharacter={addRandomCharacter}/>
-         <Cards characters={characters} onClose={onClose} />
+         
+         <Routes>
+            <Route path='/home' 
+            element={
+              <Cards characters={characters} onClose={onClose} />} 
+            />
+            <Route path='/about'
+            element={ <About />}
+            />
+            <Route path='/detail/:id'
+            element={<Detail />}
+            />
+         </Routes>
       </PrincipalDiv>
+      
    );
-}
+  };
 
 export default App;
