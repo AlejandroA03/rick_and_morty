@@ -1,18 +1,31 @@
-import { Routes, Route } from 'react-router-dom';
+import { Routes, Route, useLocation, useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 import Cards from './components/Cards.jsx';
 import Nav from './components/Nav.jsx';
 import About from './components/About.jsx';
 import Detail from './components/Detail.jsx';
+import Form from './components/Form.jsx';
 import { useState } from 'react';
 import axios from 'axios';
+import { useEffect } from 'react';
 
 const PrincipalDiv = styled.div`
    `
 
+
+const access = {
+  email: "prueba@hola.com",
+  password: "123456",
+  isLoged: false
+}
+
 function App() {
 
    const [characters, setCharacters] = useState([])
+
+   const {pathname} = useLocation()
+
+   const navigate= useNavigate()
 
    const onSearch = (id) => {
       axios(`https://rickandmortyapi.com/api/character/${id}`).then(
@@ -47,9 +60,22 @@ function App() {
         }
       });
     };
-  
 
-   const onClose= (id) =>{
+  const login = (data) => {
+
+    if (data.email=== access.email && data.password=== access.password){
+      navigate("/home")
+      access.isLoged= true
+    } else{
+      window.alert("Usuario o contraseña incorrectos")
+    }
+  }
+  
+  useEffect(() =>{
+    !access.isLoged && navigate("/")
+  }, [navigate])
+
+  const onClose= (id) =>{
       setCharacters(
          characters.filter((char)=>{
             return char.id !== Number(id)
@@ -59,9 +85,10 @@ function App() {
 
    return (
       <PrincipalDiv>
-         <Nav onSearch={onSearch} addRandomCharacter={addRandomCharacter}/>
+         {pathname!=="/" && <Nav onSearch={onSearch} addRandomCharacter={addRandomCharacter}/>}
          
          <Routes>
+            <Route path='/' element={<Form loginUser={login}/>}/>
             <Route path='/home' 
             element={
               <Cards characters={characters} onClose={onClose} />} 
@@ -72,6 +99,7 @@ function App() {
             <Route path='/detail/:id'
             element={<Detail />}
             />
+            <Route path='*' element={<h1>404 Not Found</h1>}/>
          </Routes>
       </PrincipalDiv>
       
